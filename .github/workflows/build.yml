@@ -19,26 +19,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Docker build client
-        run: docker build -t pungrumpy/multi-client ./client
-      - name: Docker build nginx
-        run: docker build -t pungrumpy/multi-nginx ./nginx
-      - name: Docker build server
-        run: docker build -t pungrumpy/multi-server ./server
-      - name: Docker build worker
-        run: docker build -t pungrumpy/multi-worker ./worker
-      # Login to docker cli
-      - name: Docker login
-        uses: docker/login-action@v2
+      - name: Docker build images
+        run: |
+          docker build -t pungrumpy/multi-client ./client
+          docker build -t pungrumpy/multi-nginx ./nginx
+          docker build -t pungrumpy/multi-server ./server
+          docker build -t pungrumpy/multi-worker ./worker
+  deploy_image:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      # Push image to docker hub
-      - name: Docker push client
-        run: docker push pungrumpy/multi-client
-      - name: Docker push nginx
-        run: docker push pungrumpy/multi-nginx
-      - name: Docker push server
-        run: docker push pungrumpy/multi-server
-      - name: Docker push worker
-        run: docker push pungrumpy/multi-worker
+      - name: Push image to Docker Hub
+        run: |
+          docker push pungrumpy/multi-client
+          docker push pungrumpy/multi-nginx
+          docker push pungrumpy/multi-server
+          docker push pungrumpy/multi-worker
