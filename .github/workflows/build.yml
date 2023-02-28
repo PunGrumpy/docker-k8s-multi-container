@@ -27,3 +27,18 @@ jobs:
         run: docker build -t pungrumpy/multi-server ./server
       - name: Docker build worker
         run: docker build -t pungrumpy/multi-worker ./worker
+      # Login to docker cli
+      - name: Docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      # Push image to docker hub
+      - name: Docker push client
+        run: docker push pungrumpy/multi-client
+      - name: Docker push nginx
+        run: docker push pungrumpy/multi-nginx
+      - name: Docker push server
+        run: docker push pungrumpy/multi-server
+      - name: Docker push worker
+        run: docker push pungrumpy/multi-worker
