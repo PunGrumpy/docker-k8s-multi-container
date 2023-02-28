@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -13,9 +13,17 @@ jobs:
         run: docker build -t pungrumpy/react-test -f ./client/Dockerfile.dev ./client
       - name: Docker run test
         run: docker run -e CI=true pungrumpy/react-test npm test
-      - name: Docker build multi-container
-        run: |
-          docker build -t pungrumpy/multi-client ./client
-          docker build -t pungrumpy/multi-nginx ./nginx
-          docker build -t pungrumpy/multi-server ./server
-          docker build -t pungrumpy/multi-worker ./worker
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Docker build client
+        run: docker build -t pungrumpy/multi-client ./client
+      - name: Docker build nginx
+        run: docker build -t pungrumpy/multi-nginx ./nginx
+      - name: Docker build server
+        run: docker build -t pungrumpy/multi-server ./server
+      - name: Docker build worker
+        run: docker build -t pungrumpy/multi-worker ./worker
