@@ -25,12 +25,6 @@ jobs:
           docker build -t pungrumpy/multi-nginx ./nginx
           docker build -t pungrumpy/multi-server ./server
           docker build -t pungrumpy/multi-worker ./worker
-  deploy_image:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
