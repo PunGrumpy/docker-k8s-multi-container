@@ -42,6 +42,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
       - name: Deploy to AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
@@ -54,3 +56,4 @@ jobs:
           version_label: ${{ github.sha }}
           wait_for_deploy: true
           bucket_path: docker-multi
+          deployment_package: deploy.zip
