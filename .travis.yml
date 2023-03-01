@@ -1,7 +1,6 @@
 dist: xenial
 os: linux
 language: ruby
-sudo: required
 services:
   - docker
 
