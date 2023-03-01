@@ -36,3 +36,20 @@ jobs:
           docker push pungrumpy/multi-nginx
           docker push pungrumpy/multi-server
           docker push pungrumpy/multi-worker
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Deploy to AWS Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: multi-docker
+          environment_name: Multidocker-env
+          existing_bucket_name: elasticbeanstalk-ap-northeast-1-204681029744
+          region: ap-northeast-1
+          version_label: ${{ github.sha }}
+          wait_for_deploy: true
