@@ -4,13 +4,16 @@
 
 - Docker
 - Docker Compose
+- Kubernetes
 - NodeJS
 - Express
 - Postgres
 - Redis
 - Nginx
 - React
-- AWS
+- AWS (Use Docker)
+- Google Cloud (Use Kubernetes)
 - DockerHub
-- TravisCI (optional)
-- GitHub Actions (optional)
+- CI/CD Tools
+    - TravisCI (optional)
+    - GitHub Actions (optional)
