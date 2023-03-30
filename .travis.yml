@@ -3,6 +3,10 @@ os: linux
 language: generic
 services:
   - docker
+  
+branches:
+  only:
+    - main
 
 before_install:
   - docker build -t pungrumpy/react-test -f ./client/Dockerfile.dev ./client
