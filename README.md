@@ -2,8 +2,6 @@
 
 ## Techs
 
-- Docker
-- Docker Compose
 - Kubernetes
 - NodeJS
 - Express
@@ -11,8 +9,7 @@
 - Redis
 - Nginx
 - React
-- AWS (Use Docker)
-- Google Cloud (Use Kubernetes)
+- Google Cloud
 - DockerHub
 - CI/CD Tools
     - TravisCI (optional)
