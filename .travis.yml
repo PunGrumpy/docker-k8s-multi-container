@@ -15,7 +15,7 @@ before_install:
   - curl https://sdk.cloud.google.com | bash > /dev/null; # Install gcloud
   - source $HOME/google-cloud-sdk/path.bash.inc # Add gcloud to $PATH
   - gcloud components update kubectl # Install & Update kubectl
-  - gcloud auth active-service-account --key-file service-account.json # Authenticate gcloud
+  - gcloud auth activate-service-account --key-file service-account.json # Authenticate gcloud
   - gcloud config set project $PROJECT_ID # Set the project
   - gcloud config set compute/zone $COMPUTE_ZONE # Set the compute zone
   - gcloud container clusters get-credentials $CLUSTER_NAME # Get the credentials for the cluster
