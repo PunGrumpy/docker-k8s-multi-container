@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate
+spec:
+  secretName: k8s-pungrumpy-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: k8s.pungrumpy.com
+  dnsNames:
+    - k8s.pungrumpy.com
+    - www.k8s.pungrumpy.com
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - k8s.pungrumpy.com
+          - www.k8s.pungrumpy.com
