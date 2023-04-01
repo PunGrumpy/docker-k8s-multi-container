@@ -1,0 +1,13 @@
+dist: xenial
+os: linux
+language: generic
+services:
+  - docker
+branches:
+  only:
+    - "main"
+before_install:
+  - curl https://sdk.cloud.google.com | bash > /dev/null; # Install gcloud
+  - source $HOME/google-cloud-sdk/path.bash.inc # Add gcloud to $PATH
+  - gcloud components update kubectl # Install & Update kubectl
+  - gcloud auth active-service-account --key-file=service-account.json # Authenticate gcloud
