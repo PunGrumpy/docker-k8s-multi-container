@@ -19,10 +19,10 @@ before_install:
   - gcloud config set project $PROJECT_ID # Set the project
   - gcloud config set compute/zone $COMPUTE_ZONE # Set the compute zone
   - gcloud container clusters get-credentials $CLUSTER_NAME # Get the credentials for the cluster
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin # Login to Docker Hub
-  - docker build -t $DOCKER_USERNAME/react-test -f ./client/Dockerfile.dev ./client # Build the test image
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin # Login to Docker Hub
+  - docker build -t $DOCKER_ID/react-test -f ./client/Dockerfile.dev ./client # Build the test image
 script:
-  - docker run -e CI=true $DOCKER_USERNAME/react-test npm test # Run the test image
+  - docker run -e CI=true $DOCKER_ID/react-test npm test # Run the test image
 deploy:
   provider: script
   script: bash ./deploy.sh
